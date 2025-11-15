@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: futbol-club-app
+    env: java
+    plan: free
+    buildCommand: ./mvnw clean package -DskipTests
+    startCommand: java -jar target/app-0.0.1-SNAPSHOT.jar
+    envVars:
+      - key: SERVER_PORT
+        value: 8098
+      - key: SPRING_DATASOURCE_URL
+        value: jdbc:mysql://gateway01.us-east-1.prod.aws.tidbcloud.com:4000/futbol_club_db?sslMode=REQUIRED&enabledTLSProtocols=TLSv1.2,TLSv1.3
+      - key: SPRING_DATASOURCE_USERNAME
+        value: CBrvm1AvSY1Lo7e.root
+      - key: SPRING_DATASOURCE_PASSWORD
+        value: cTjbxPXjVGye0Y0s
+      - key: SPRING_JPA_HIBERNATE_DDL_AUTO
+        value: update
+      - key: SPRING_JPA_SHOW_SQL
+        value: "true"
+      - key: SPRING_AUTOCONFIGURE_EXCLUDE
+        value: org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
