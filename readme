@@ -1,0 +1,22 @@
+# Limpiar y compilar
+mvn clean compile
+
+# Generar el JAR
+mvn package
+
+# O saltar tests
+mvn package -DskipTests   
+
+
+y despues de ejecutar esto, en donde queda guardado??
+
+
+# ejecutar el JAR generado
+
+java -jar target/futbol_club-app-0.0.1-SNAPSHOT.jar
+
+El JAR queda guardado en la carpeta target
+
+# para borrar todos los ejecutables creados previamente
+
+mvn clean

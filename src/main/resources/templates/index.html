@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --barca-blue: #004D98;
+            --barca-red: #A50044;
+            --barca-gold: #EDBB00;
+            --barca-dark: #002D62;
+            --barca-light: #2A7FFF;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #0a0f2b 0%, #1a1f3a 100%);
+            min-height: 100vh;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+        
+        /* Navbar Moderna */
+        .navbar {
+            background: rgba(0, 77, 152, 0.95) !important;
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+        }
+        
+        .navbar.scrolled {
+            background: rgba(0, 45, 98, 0.98) !important;
+            padding: 0.5rem 0;
+        }
+        
+        .navbar-brand {
+            font-weight: 800;
+            font-size: 1.8rem;
+            background: linear-gradient(135deg, #ffffff, var(--barca-gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        /* Hero Section Épica */
+        .hero-section {
+            background: linear-gradient(135deg, 
+                var(--barca-dark) 0%, 
+                var(--barca-blue) 30%, 
+                var(--barca-red) 70%, 
+                #8B0000 100%);
+            color: white;
+            padding: 150px 0 100px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+        
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(237, 187, 0, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(165, 0, 68, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(0, 77, 152, 0.1) 0%, transparent 50%);
+            animation: pulse 8s ease-in-out infinite;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .hero-title {
+            font-weight: 900;
+            font-size: 4.5rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #ffffff, var(--barca-gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            line-height: 1.1;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.5rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+        
+        .hero-description {
+            font-size: 1.2rem;
+            opacity: 0.8;
+            margin-bottom: 3rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
+        }
+        
+        /* Cards Ultra Modernas */
+        .features-grid {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #0a0f2b 0%, #1a1f3a 100%);
+            position: relative;
+        }
+        
+        .features-grid::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--barca-gold), transparent);
+        }
+        
+        .section-title {
+            font-weight: 800;
+            font-size: 3.5rem;
+            text-align: center;
+            margin-bottom: 4rem;
+            background: linear-gradient(135deg, var(--barca-blue), var(--barca-gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--barca-blue), var(--barca-gold));
+            border-radius: 2px;
+        }
+        
+        .feature-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2.5rem;
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            height: 100%;
+        }
+        
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            transition: left 0.6s ease;
+        }
+        
+        .feature-card:hover::before {
+            left: 100%;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            border-color: var(--barca-gold);
+            box-shadow: 
+                0 20px 40px rgba(0,0,0,0.3),
+                0 0 0 1px rgba(237, 187, 0, 0.1),
+                0 0 50px rgba(237, 187, 0, 0.1);
+        }
+        
+        .card-icon {
+            width: 90px;
+            height: 90px;
+            background: linear-gradient(135deg, var(--barca-blue), var(--barca-red));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 2rem;
+            font-size: 2.5rem;
+            color: white;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .feature-card:hover .card-icon {
+            transform: scale(1.1) rotate(5deg);
+            background: linear-gradient(135deg, var(--barca-gold), var(--barca-red));
+        }
+        
+        .card-icon::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(135deg, var(--barca-blue), var(--barca-red), var(--barca-gold));
+            border-radius: 50%;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        
+        .feature-card:hover .card-icon::before {
+            opacity: 1;
+        }
+        
+        .card-title {
+            font-weight: 700;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: white;
+        }
+        
+        .card-text {
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 2rem;
+            line-height: 1.6;
+            font-size: 1rem;
+        }
+        
+        .btn-modern {
+            background: linear-gradient(135deg, var(--barca-blue), var(--barca-red));
+            border: none;
+            color: white;
+            font-weight: 600;
+            padding: 12px 30px;
+            border-radius: 50px;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .btn-modern::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.6s ease;
+        }
+        
+        .btn-modern:hover::before {
+            left: 100%;
+        }
+        
+        .btn-modern:hover {
+            transform: translateY(-3px);
+            box-shadow: 
+                0 10px 25px rgba(165, 0, 68, 0.4),
+                0 0 0 2px rgba(255,255,255,0.1);
+            color: white;
+        }
+        
+        /* Animaciones */
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+        
+        .floating-element {
+            position: absolute;
+            background: rgba(255,255,255,0.05);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .float-1 { width: 100px; height: 100px; top: 20%; left: 10%; animation-delay: 0s; }
+        .float-2 { width: 150px; height: 150px; bottom: 20%; right: 10%; animation-delay: 2s; }
+        .float-3 { width: 80px; height: 80px; top: 60%; left: 20%; animation-delay: 4s; }
+        
+        /* Grid Layout Mejorado */
+        .features-container {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .row.g-4 {
+            margin-top: 3rem;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 3rem;
+            }
+            
+            .hero-section {
+                padding: 120px 0 80px;
+                min-height: 80vh;
+            }
+            
+            .section-title {
+                font-size: 2.5rem;
+            }
+            
+            .feature-card {
+                padding: 2rem;
+            }
+        }
+        
+        /* Efectos de Partículas */
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+        
+        .particle {
+            position: absolute;
+            background: var(--barca-gold);
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: float 8s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="fas fa-crown me-2"></i>
+                FC BARCELONA
+            </a>
+            <div class="navbar-nav ms-auto">
+                <span class="navbar-text">
+                    <i class="fas fa-rocket me-2"></i>
+                    Sistema Premium
+                </span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="hero-section">
+        <div class="floating-element float-1"></div>
+        <div class="floating-element float-2"></div>
+        <div class="floating-element float-3"></div>
+        
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">FC BARCELONA</h1>
+                <p class="hero-description">
+                    Plataforma integral para la gestión profesional del club más emblemático del fútbol mundial. 
+                    Control total sobre jugadores, competiciones y estrategia deportiva.
+                </p>
+                <div class="d-flex gap-3 justify-content-center flex-wrap">
+                    <a th:href="@{/web/clubes}" class="btn-modern btn-lg">
+                        <i class="fas fa-play me-2"></i>Iniciar Sistema
+                    </a>
+                    <a href="#features" class="btn-modern btn-lg" style="background: transparent; border: 2px solid var(--barca-gold);">
+                        <i class="fas fa-chart-line me-2"></i>Más Información
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Features Grid -->
+    <div id="features" class="features-grid">
+        <div class="container features-container">
+            <h2 class="section-title">Módulos del Sistema</h2>
+            
+            <div class="row g-4">
+                <!-- Clubes -->
+                <div class="col-md-4">
+                    <div class="feature-card">
+                        <div class="card-icon">
+                            <i class="fas fa-trophy"></i>
+                        </div>
+                        <h3 class="card-title">Gestión de Clubes</h3>
+                        <p class="card-text">
+                            Control completo sobre la institución: estadio, directiva, 
+                            presupuesto y toda la infraestructura del FC Barcelona.
+                        </p>
+                        <a th:href="@{/web/clubes}" class="btn-modern">
+                            <i class="fas fa-cog me-2"></i>Gestionar
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Entrenadores -->
+                <div class="col-md-4">
+                    <div class="feature-card">
+                        <div class="card-icon">
+                            <i class="fas fa-whistle"></i>
+                        </div>
+                        <h3 class="card-title">Cuerpo Técnico</h3>
+                        <p class="card-text">
+                            Gestión avanzada del staff técnico: tácticas, estrategias, 
+                            sesiones de entrenamiento y desarrollo profesional.
+                        </p>
+                        <a th:href="@{/web/entrenadores}" class="btn-modern">
+                            <i class="fas fa-cog me-2"></i>Gestionar
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Jugadores -->
+                <div class="col-md-4">
+                    <div class="feature-card">
+                        <div class="card-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h3 class="card-title">Plantilla Élite</h3>
+                        <p class="card-text">
+                            Administración completa de la plantilla: contratos, estadísticas, 
+                            rendimiento y desarrollo de cada jugador.
+                        </p>
+                        <a th:href="@{/web/jugadores}" class="btn-modern">
+                            <i class="fas fa-cog me-2"></i>Gestionar
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Asociaciones -->
+                <div class="col-md-4">
+                    <div class="feature-card">
+                        <div class="card-icon">
+                            <i class="fas fa-landmark"></i>
+                        </div>
+                        <h3 class="card-title">Relaciones Federativas</h3>
+                        <p class="card-text">
+                            Gestión de relaciones con RFEF, UEFA, FIFA y demás 
+                            organismos deportivos nacionales e internacionales.
+                        </p>
+                        <a th:href="@{/web/asociaciones}" class="btn-modern">
+                            <i class="fas fa-cog me-2"></i>Gestionar
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Competiciones -->
+                <div class="col-md-4">
+                    <div class="feature-card">
+                        <div class="card-icon">
+                            <i class="fas fa-flag-checkered"></i>
+                        </div>
+                        <h3 class="card-title">Competiciones Globales</h3>
+                        <p class="card-text">
+                            Control de todas las competiciones: LaLiga, Champions, 
+                            Copa del Rey y torneos internacionales.
+                        </p>
+                        <a th:href="@{/web/competiciones}" class="btn-modern">
+                            <i class="fas fa-cog me-2"></i>Gestionar
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Analytics -->
+                <div class="col-md-4">
+                    <div class="feature-card">
+                        <div class="card-icon">
+                            <i class="fas fa-chart-bar"></i>
+                        </div>
+                        <h3 class="card-title">Inteligencia Deportiva</h3>
+                        <p class="card-text">
+                            Analytics avanzado, reportes estratégicos y toma de 
+                            decisiones basada en datos y estadísticas.
+                        </p>
+                        <a href="#" class="btn-modern">
+                            <i class="fas fa-chart-line me-2"></i>Ver Analytics
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 100) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+        
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Create particles
+        function createParticles() {
+            const particlesContainer = document.createElement('div');
+            particlesContainer.className = 'particles';
+            document.querySelector('.hero-section').appendChild(particlesContainer);
+            
+            for (let i = 0; i < 20; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.width = Math.random() * 5 + 2 + 'px';
+                particle.style.height = particle.style.width;
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 10 + 's';
+                particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+        
+        createParticles();
+    </script>
+</body>
+</html>

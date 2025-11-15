@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Asociaciones - FC Barcelona</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --barca-blue: #004D98;
+            --barca-red: #A50044;
+            --barca-gold: #EDBB00;
+            --barca-dark: #002D62;
+            --barca-light: #2A7FFF;
+        }
+        
+        body {
+            font-family: 'Poppins', 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #0a0f2b 0%, #1a1f3a 100%);
+            min-height: 100vh;
+            color: #ffffff !important;
+        }
+        
+        .navbar {
+            background: rgba(0, 77, 152, 0.95) !important;
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .navbar-brand {
+            font-weight: 800;
+            font-size: 1.5rem;
+            color: #ffffff !important;
+        }
+        
+        .container {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+            color: #ffffff;
+        }
+        
+        h1 {
+            font-weight: 800;
+            color: #ffffff !important;
+            margin-bottom: 2rem;
+        }
+        
+        .table {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            overflow: hidden;
+            color: #ffffff !important;
+        }
+        
+        .table-dark {
+            background: linear-gradient(135deg, var(--barca-blue), var(--barca-red)) !important;
+            color: #ffffff !important;
+        }
+        
+        .table-striped tbody tr:nth-of-type(odd) {
+            background-color: rgba(255, 255, 255, 0.03);
+        }
+        
+        .btn-success {
+            background: linear-gradient(135deg, var(--barca-blue), var(--barca-red));
+            border: none;
+            color: #ffffff !important;
+            font-weight: 600;
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-success:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(165, 0, 68, 0.4);
+            background: linear-gradient(135deg, var(--barca-blue), var(--barca-red));
+            color: #ffffff !important;
+        }
+        
+        .btn-warning {
+            background: linear-gradient(135deg, var(--barca-gold), #ff6b00);
+            border: none;
+            color: #ffffff !important;
+            font-weight: 600;
+            border-radius: 20px;
+        }
+        
+        .btn-danger {
+            background: linear-gradient(135deg, #dc3545, #a50044);
+            border: none;
+            color: #ffffff !important;
+            font-weight: 600;
+            border-radius: 20px;
+        }
+        
+        .form-control {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #ffffff !important;
+            border-radius: 10px;
+            padding: 0.75rem 1rem;
+        }
+        
+        .form-control::placeholder {
+            color: rgba(255, 255, 255, 0.7) !important;
+        }
+        
+        .form-control:focus {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: var(--barca-gold);
+            color: #ffffff !important;
+            box-shadow: 0 0 0 0.2rem rgba(237, 187, 0, 0.25);
+        }
+        
+        .btn-outline-primary {
+            border: 1px solid var(--barca-blue);
+            color: var(--barca-blue);
+            border-radius: 10px;
+            font-weight: 600;
+        }
+        
+        .btn-outline-primary:hover {
+            background: var(--barca-blue);
+            color: #ffffff !important;
+        }
+        
+        .badge {
+            font-size: 0.75rem;
+            padding: 0.4rem 0.8rem;
+            border-radius: 10px;
+            color: #ffffff !important;
+        }
+        
+        .bg-primary {
+            background: linear-gradient(135deg, var(--barca-blue), var(--barca-light)) !important;
+        }
+        
+        .alert {
+            border-radius: 15px;
+            border: none;
+            color: #ffffff !important;
+        }
+        
+        .alert-success {
+            background: rgba(40, 167, 69, 0.2);
+            color: #ffffff !important;
+            border-left: 4px solid #28a745;
+        }
+        
+        .alert-danger {
+            background: rgba(220, 53, 69, 0.2);
+            color: #ffffff !important;
+            border-left: 4px solid #dc3545;
+        }
+        
+        .nav-link {
+            color: #ffffff !important;
+        }
+        
+        .nav-link.active {
+            color: var(--barca-gold) !important;
+        }
+        
+        /* Asegurar que todos los textos sean blancos */
+        td, th, strong, small, span, div {
+            color: #ffffff !important;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" th:href="@{/}">
+                <i class="fas fa-crown me-2"></i>FC BARCELONA
+            </a>
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link" th:href="@{/}">Inicio</a>
+                <a class="nav-link active" th:href="@{/web/asociaciones}">Asociaciones</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mensajes -->
+    <div class="container mt-3">
+        <div th:if="${success}" class="alert alert-success alert-dismissible fade show" role="alert">
+            <i class="fas fa-check-circle me-2"></i>
+            <span th:text="${success}"></span>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"></button>
+        </div>
+        <div th:if="${error}" class="alert alert-danger alert-dismissible fade show" role="alert">
+            <i class="fas fa-exclamation-triangle me-2"></i>
+            <span th:text="${error}"></span>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"></button>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1>🏛️ Gestión de Asociaciones</h1>
+            <a th:href="@{/web/asociaciones/nuevo}" class="btn btn-success">
+                <i class="fas fa-plus me-2"></i>Nueva Asociación
+            </a>
+        </div>
+
+        <div class="row mb-4">
+            <div class="col-md-6">
+                <form th:action="@{/web/asociaciones}" method="get" class="d-flex">
+                    <input type="text" name="search" th:value="${param.search}" class="form-control me-2"
+                        placeholder="🔍 Buscar asociaciones...">
+                    <button type="submit" class="btn btn-outline-primary">Buscar</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead class="table-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>País</th>
+                        <th>Presidente</th>
+                        <th>Clubes Asociados</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="asociacion : ${asociaciones}">
+                        <td th:text="${asociacion.id}"></td>
+                        <td th:text="${asociacion.nombre}"></td>
+                        <td th:text="${asociacion.pais}"></td>
+                        <td th:text="${asociacion.presidente}"></td>
+                        <td>
+                            <span th:if="${asociacion.clubes != null and !asociacion.clubes.empty}" 
+                                  class="badge bg-primary">
+                                  <i class="fas fa-users me-1"></i>
+                                  <span th:text="${asociacion.clubes.size()}"></span> club(es)
+                            </span>
+                            <span th:if="${asociacion.clubes == null or asociacion.clubes.empty}" 
+                                  class="badge bg-secondary">
+                                  <i class="fas fa-users me-1"></i>Sin clubes
+                            </span>
+                        </td>
+                        <td>
+                            <a th:href="@{/web/asociaciones/editar/{id}(id=${asociacion.id})}" 
+                               class="btn btn-warning btn-sm mb-1">
+                               <i class="fas fa-edit me-1"></i>Editar
+                            </a>
+                            <a th:href="@{/web/asociaciones/eliminar/{id}(id=${asociacion.id})}" 
+                               class="btn btn-danger btn-sm"
+                               onclick="return confirm('¿Estás seguro de eliminar esta asociación?')">
+                               <i class="fas fa-trash me-1"></i>Eliminar
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

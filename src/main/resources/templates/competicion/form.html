@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${competicion.id} ? 'Editar Competición' : 'Nueva Competición'">Formulario Competición</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --barca-blue: #004D98;
+            --barca-red: #A50044;
+            --barca-gold: #EDBB00;
+            --barca-dark: #002D62;
+            --barca-light: #2A7FFF;
+        }
+        
+        body {
+            font-family: 'Poppins', 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #0a0f2b 0%, #1a1f3a 100%);
+            min-height: 100vh;
+            color: #ffffff !important;
+        }
+        
+        .navbar {
+            background: rgba(0, 77, 152, 0.95) !important;
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .navbar-brand {
+            font-weight: 800;
+            font-size: 1.5rem;
+            color: #ffffff !important;
+        }
+        
+        .container {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+            color: #ffffff;
+        }
+        
+        h1 {
+            font-weight: 800;
+            color: #ffffff !important;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        
+        .form-label {
+            font-weight: 600;
+            color: #ffffff !important;
+            margin-bottom: 0.5rem;
+        }
+        
+        .form-control, .form-select {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #ffffff !important;
+            border-radius: 10px;
+            padding: 0.75rem 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .form-control::placeholder, .form-select::placeholder {
+            color: rgba(255, 255, 255, 0.7) !important;
+        }
+        
+        .form-control:focus, .form-select:focus {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: var(--barca-gold);
+            color: #ffffff !important;
+            box-shadow: 0 0 0 0.2rem rgba(237, 187, 0, 0.25);
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            color: #ffffff !important;
+        }
+        
+        .card-header {
+            background: linear-gradient(135deg, var(--barca-blue), var(--barca-red));
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            color: #ffffff !important;
+        }
+        
+        .form-check-input {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .form-check-input:checked {
+            background: linear-gradient(135deg, var(--barca-blue), var(--barca-red));
+            border-color: var(--barca-gold);
+        }
+        
+        .form-check-label {
+            color: #ffffff !important;
+        }
+        
+        .badge {
+            font-size: 0.7rem;
+            padding: 0.3rem 0.6rem;
+            color: #ffffff !important;
+        }
+        
+        .btn-success {
+            background: linear-gradient(135deg, var(--barca-blue), var(--barca-red));
+            border: none;
+            color: #ffffff !important;
+            font-weight: 600;
+            padding: 0.75rem 2rem;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-success:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(165, 0, 68, 0.4);
+            background: linear-gradient(135deg, var(--barca-blue), var(--barca-red));
+            color: #ffffff !important;
+        }
+        
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #ffffff !important;
+            font-weight: 600;
+            padding: 0.75rem 2rem;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: var(--barca-gold);
+            color: #ffffff !important;
+        }
+        
+        .text-muted {
+            color: rgba(255, 255, 255, 0.8) !important;
+        }
+        
+        .border-danger {
+            border-color: var(--barca-gold) !important;
+        }
+        
+        .bg-danger {
+            background: linear-gradient(135deg, var(--barca-blue), var(--barca-red)) !important;
+        }
+        
+        .nav-link {
+            color: #ffffff !important;
+        }
+        
+        .nav-link.active {
+            color: var(--barca-gold) !important;
+        }
+        
+        /* Asegurar que todos los textos sean blancos */
+        strong, small, span, div, p, h5, h6 {
+            color: #ffffff !important;
+        }
+        
+        .card-title {
+            color: #ffffff !important;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" th:href="@{/}">
+                <i class="fas fa-crown me-2"></i>FC BARCELONA
+            </a>
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link" th:href="@{/}">Inicio</a>
+                <a class="nav-link active" th:href="@{/web/competiciones}">Competiciones</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1 th:text="${competicion.id} ? '✏️ Editar Competición' : '➕ Nueva Competición'">Formulario Competición</h1>
+        
+        <form th:action="@{/web/competiciones/guardar}" th:object="${competicion}" method="post">
+            <input type="hidden" th:field="*{id}">
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mb-4">
+                        <label class="form-label">🏆 Nombre</label>
+                        <input type="text" th:field="*{nombre}" class="form-control" required 
+                               placeholder="Ingrese el nombre de la competición">
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label class="form-label">💰 Monto del Premio ($)</label>
+                        <input type="number" th:field="*{montoPremio}" class="form-control" required 
+                               placeholder="Ingrese el monto del premio">
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="mb-4">
+                        <label class="form-label">📅 Fecha de Inicio</label>
+                        <input type="date" th:field="*{fechaInicio}" class="form-control" required>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label class="form-label">📅 Fecha de Fin</label>
+                        <input type="date" th:field="*{fechaFin}" class="form-control" required>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECCIÓN PARA ASOCIAR CLUBES -->
+            <div class="card mt-4">
+                <div class="card-header">
+                    <h5 class="card-title mb-1">⚽ Clubes Participantes</h5>
+                    <small class="text-muted">Selecciona los clubes que participan en esta competición</small>
+                </div>
+                <div class="card-body">
+                    <div th:if="${todosLosClubes != null and !todosLosClubes.empty}">
+                        <div class="row">
+                            <div th:each="club : ${todosLosClubes}" class="col-md-6 mb-3">
+                                <div class="form-check p-3 rounded" style="background: rgba(255,255,255,0.05);">
+                                    <input class="form-check-input" type="checkbox" 
+                                           th:id="'club_' + ${club.id}"
+                                           th:value="${club.id}"
+                                           th:name="clubIds"
+                                           th:checked="${competicion.clubes != null and competicion.clubes.contains(club)}">
+                                    <label class="form-check-label ms-2" th:for="'club_' + ${club.id}">
+                                        <strong th:text="${club.nombre}"></strong>
+                                        <small class="text-muted d-block">
+                                            📍 <span th:text="${club.ciudad}"></span>
+                                            <span th:if="${club.estadio != null}"> | 🏟️ <span th:text="${club.estadio}"></span></span>
+                                        </small>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div th:if="${todosLosClubes == null or todosLosClubes.empty}" class="text-center text-muted py-4">
+                        <i class="fas fa-shield-alt fa-2x mb-2"></i>
+                        <p>No hay clubes disponibles para asociar</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Información actual de clubes participantes (solo en edición) -->
+            <div th:if="${competicion.id != null and competicion.clubes != null and !competicion.clubes.empty}" 
+                 class="card mt-4 border-danger">
+                <div class="card-header bg-danger">
+                    <h6 class="card-title mb-0">📋 Clubes Actualmente Participantes</h6>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div th:each="club : ${competicion.clubes}" class="col-md-6 mb-2">
+                            <div class="mb-2 p-2 rounded" style="background: rgba(255,255,255,0.05);">
+                                <small>
+                                    🏆 <strong th:text="${club.nombre}"></strong> 
+                                    - 📍 <span th:text="${club.ciudad}"></span>
+                                    <span th:if="${club.estadio != null}"> | 🏟️ <span th:text="${club.estadio}"></span></span>
+                                    <span class="badge bg-success ms-2">✅ Participante</span>
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="d-flex gap-3 mt-4 justify-content-center">
+                <button type="submit" class="btn btn-success">
+                    <i class="fas fa-save me-2"></i>Guardar Competición
+                </button>
+                <a th:href="@{/web/competiciones}" class="btn btn-secondary">
+                    <i class="fas fa-times me-2"></i>Cancelar
+                </a>
+            </div>
+        </form>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
