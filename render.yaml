@@ -3,7 +3,7 @@ services:
     name: futbol-club-app
     runtime: node
     plan: free
-    buildCommand: ./mvnw clean package -DskipTests
+    buildCommand: sh mvnw clean package -DskipTests
     startCommand: java -jar target/app-0.0.1-SNAPSHOT.jar
     envVars:
       - key: SERVER_PORT
